@@ -1,4 +1,11 @@
 
+
+
+
+
+
+
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -35,33 +42,33 @@ const slides = [
 
 const Hero = () => {
     return (
-        <section className="w-full max-h-[430px] relative bg-gray-100 flex items-center justify-center overflow-hidden">
+        <section className="w-full h-[450px] relative bg-gray-100 flex items-center justify-center overflow-hidden">
             <Container>
                 <Swiper
                     modules={[Autoplay, Pagination]}
                     autoplay={{ delay: 5000, disableOnInteraction: false }}
                     pagination={{ clickable: true }}
                     loop={true}
-                    className="w-full"
+                    className="w-full h-full"
                 >
                     {slides.map((slide, index) => (
-                        <SwiperSlide key={index}>
-                            <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto px-6 py-16 md:py-32 gap-8">
+                        <SwiperSlide key={index} className="h-full">
+                            <div className="flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto h-full px-4 md:px-6 gap-6 md:gap-12">
                                 {/* Text Section */}
                                 <motion.div
                                     initial={{ x: -100, opacity: 0 }}
                                     whileInView={{ x: 0, opacity: 1 }}
                                     transition={{ duration: 1 }}
-                                    className="flex-1"
+                                    className="flex-1 flex flex-col justify-center h-full"
                                 >
-                                    <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+                                    <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-3 md:mb-4">
                                         {slide.title}
                                     </h1>
-                                    <p className="text-lg md:text-xl text-gray-700 mb-6">
+                                    <p className="text-base sm:text-lg md:text-xl text-gray-700 mb-4 md:mb-6">
                                         {slide.subtitle}
                                     </p>
                                     <button
-                                        className="btn text-white transition-all duration-300"
+                                        className="btn text-white w-max px-6 py-2 sm:py-3 transition-all duration-300 rounded-md"
                                         style={{ backgroundColor: brandPrimary }}
                                         onMouseEnter={(e) => (e.target.style.backgroundColor = brandSecondary)}
                                         onMouseLeave={(e) => (e.target.style.backgroundColor = brandPrimary)}
@@ -75,12 +82,12 @@ const Hero = () => {
                                     initial={{ x: 100, opacity: 0 }}
                                     whileInView={{ x: 0, opacity: 1 }}
                                     transition={{ duration: 1 }}
-                                    className="flex-1"
+                                    className="flex-1 flex items-center justify-center h-full"
                                 >
                                     <img
                                         src={slide.img}
                                         alt={slide.title}
-                                        className="rounded-xl shadow-xl w-full object-cover max-h-[400px]"
+                                        className="rounded-xl shadow-xl w-full h-full object-cover max-h-[450px]"
                                     />
                                 </motion.div>
                             </div>
