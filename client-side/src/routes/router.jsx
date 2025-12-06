@@ -9,48 +9,53 @@ import Dashboard from "../layouts/Dashboard";
 import Clubs from "../pages/Clubs/Clubs";
 import Events from "../pages/Events/Events";
 import Pricing from "../pages/Pricing/Pricing";
+import Profile from "../pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root/>,
-    errorElement: <ErrorPage/>,
-    children:[
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
       {
         index: true,
-        element: <Home/>
+        element: <Home />
       },
       {
-        path:'/clubs',
-        element: <Clubs/>,
+        path: '/clubs',
+        element: <Clubs />,
       },
       {
-        path:'/events',
-        element: <Events/>,
+        path: '/events',
+        element: <Events />,
       },
       {
-        path:'/pricing',
-        element: <Pricing/>,
+        path: '/pricing',
+        element: <Pricing />,
+      },
+      {
+        path: '/profile',
+        element: <PrivateRoute><Profile /></PrivateRoute>,
       },
     ]
   },
   {
-    path:'/login',
-    element: <Login/>,
+    path: '/login',
+    element: <Login />,
   },
   {
-    path:'/register',
-    element: <Register/>,
+    path: '/register',
+    element: <Register />,
   },
   {
     path: '/dashboard',
-    element: <PrivateRoute><Dashboard/></PrivateRoute>,
-    children:[
+    element: <PrivateRoute><Dashboard /></PrivateRoute>,
+    children: [
       {
         index: true,
         element: <PrivateRoute></PrivateRoute>
       },
-      
+
     ]
   },
 
