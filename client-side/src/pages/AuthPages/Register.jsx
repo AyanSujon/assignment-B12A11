@@ -4,22 +4,27 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import SocialLogin from './SocialLogin';
-
+import logo from '../../assets/logo/favicon.png';
+import Loading from '../Loading';
 
 
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUserWithEmailAndPasswordFunction, updateUserProfile, } = useAuth();
+    const { createUserWithEmailAndPasswordFunction, updateUserProfile,loading, setLoading } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     // console.log("in register", location);
 
+    if(loading){
+        return<Loading></Loading>
+    }
 
 
 
     const handleRegistration = (data) => {
         // console.log("After Submit", data.photo[0]);
+        setLoading(true);
         const profileImg = data.photo[0];
         createUserWithEmailAndPasswordFunction(data.email, data.password)
             .then((result) => {
@@ -42,6 +47,7 @@ const Register = () => {
                             .then(() => {
                                 console.log('User profile updated done.')
                                 navigate(location?.state || '/');
+                                setLoading(false);
                             })
                             .catch(error => console.log(error))
                     })
@@ -57,8 +63,14 @@ const Register = () => {
 
     return (
         <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl my-5">
+            <span className="flex justify-center items-center mt-5">
+                <figure className="w-8 flex justify-center items-center">
+                    <img src={logo} alt="Logo" className="w-full h-auto" />
+                </figure>
+            </span>
+
             <h3 className="text-3xl text-center">Create an Account</h3>
-            <p className='text-center'>Register with ZapShift</p>
+            <p className='text-center'>Register with ClubSphere </p>
             <form className='card-body' onSubmit={handleSubmit(handleRegistration)}>
                 <fieldset className="fieldset">
 
@@ -85,7 +97,7 @@ const Register = () => {
                     {errors.password?.type === 'minLength' && (<p className='text-red-500'>Password must be 6 characters or longer.</p>)}
                     {errors.password?.type === 'pattern' && (<p className='text-red-500'>Password must contain at least one uppercase, one lowercase, one number, and one special character.</p>)}
 
-                    <button className="btn bg-primary text-black mt-4">Register</button>
+                    <button className="btn bg-primary hover:bg-secondary text-white mt-4">Register</button>
                 </fieldset>
                 <p>Already have an account? <Link to={'/login'} state={location?.state} className='text-primary link-hover'>Login</Link></p>
 

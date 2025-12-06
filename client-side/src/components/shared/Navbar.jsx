@@ -2,13 +2,15 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router';
 import Container from './Container';
 import useAuth from '../../hooks/useAuth';
+import Logo from './Logo';
 
 const Navbar = () => {
-    const { user,  signOutUserFunction, loading } = useAuth();
+    const { user, signOutUserFunction, loading } = useAuth();
     const links = <>
         <li><NavLink to={"/"} className={"font-semebold"}>Home</NavLink></li>
-        <li><NavLink to={"/"} className={"font-semebold"}>Home</NavLink></li>
-        <li><NavLink to={"/"} className={"font-semebold"}>Home</NavLink></li>
+        <li><NavLink to={"/clubs"} className={"font-semebold"}>Clubs</NavLink></li>
+        <li><NavLink to={"/events"} className={"font-semebold"}>Events</NavLink></li>
+        <li><NavLink to={"/pricing"} className={"font-semebold"}>Pricing</NavLink></li>
     </>
 
 
@@ -28,7 +30,9 @@ const Navbar = () => {
                                     {links}
                                 </ul>
                             </div>
-                            <Link to={"/"} className=" flex  items-center text-[#82B532] text-xl font-semibold"><figure className='w-12 pr-1'><img src={"https://i.ibb.co.com/tpnX8gT8/site-logo2.png"} alt="Site Logo" /></figure><span className='text-[#297B33]'>Eco</span>Track</Link>
+                            <Link to={"/"}>
+                                <Logo></Logo>
+                            </Link>
                         </div>
                         <div className="navbar-center hidden lg:flex">
                             <ul className="menu menu-horizontal px-1">
@@ -47,26 +51,47 @@ const Navbar = () => {
 
                                         </div>
                                         <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm space-y-3 text-center">
-                                            <Link to={"/profile"} className="tooltip" data-tip="Click to Profile">
+
+                                            {/* <Link to={"/profile"} className="tooltip" data-tip="Click to Profile">
                                                 <img className='w-25 h-25 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
-                                            </Link>
-                                            <NavLink to={`/dashboard`} className={" text-center font-semebold hover:underline"}>Dashboard</NavLink>
-                                            <NavLink to="/my-activities" className=" hover:underline">
-                                                My Activities
-                                            </NavLink>
+                                            </Link> */}
+                                            <NavLink to={`/dashboard`} className={" font-semebold hover:underline"}>Dashboard</NavLink>
+                                            <NavLink to={`/profile`} className={"font-semebold hover:underline"}>Profile</NavLink>
 
                                             <h2 className='text-xl font-semebold'>{user?.displayName}</h2>
                                             <p className='text-black'>{user?.email}</p>
-                                            <button onClick={signOutUserFunction} className={"btn bg-[#297B33] hover:bg-[#82B532]  text-white"}>Sign Out</button>
+                                            <button onClick={signOutUserFunction} className={"btn bg-primary hover:bg-secondary transition-colors  text-white"}>Sign Out</button>
                                         </ul>
                                     </div>
                                 ) : (
-                                    <Link
-                                        to="/login"
-                                        className="btn text-white bg-[#297B33] hover:bg-[#82B532] border-none"
-                                    >
-                                        Log in
-                                    </Link>
+                                    <div className="dropdown dropdown-end">
+                                        <div tabIndex={0} role="button" className=" m-1">
+                                            <img className='w-10 h-10 mx-auto rounded-full overflow-hidden border border-primary' src={user?.photoURL || "https://i.ibb.co.com/tp3xgXbG/avater.jpg"} alt="Avater" />
+
+                                        </div>
+                                        <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm space-y-3 text-center">
+                                            <li>
+                                            
+                                            <Link
+                                                to="/login"
+                                                className="btn text-white bg-primary hover:bg-secondary border-none"
+                                            >
+                                                Log in
+                                            </Link>
+                                            </li>
+                                            <li>
+                                            
+                                            <Link
+                                                to="/register"
+                                                className="btn text-white bg-secondary  hover:bg-primary border-none"
+                                            >
+                                                Register
+                                            </Link>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
 
                                 )
                             }

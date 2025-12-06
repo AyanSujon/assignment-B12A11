@@ -4,23 +4,30 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import SocialLogin from './SocialLogin';
+import logo from '../../assets/logo/favicon.png';
+import Loading from '../Loading';
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signInWithEmailAndPasswordFunction } = useAuth();
+    const { signInWithEmailAndPasswordFunction,  setLoading, loading} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
     // console.log("In the login page", location);
 
+    if(loading){
+        return<Loading></Loading>
+    }
 
 
     const handleLogin = (data) => {
+         setLoading(true);
         // console.log("After Submit: ", data);
         signInWithEmailAndPasswordFunction(data.email, data.password)
             .then((result) => {
                 console.log(result.user);
                 navigate(location?.state || '/');
+                 setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -31,8 +38,13 @@ const Login = () => {
 
     return (
         <div className="card bg-base-100 w-full mx-auto max-w-sm shrink-0 shadow-2xl my-5">
+            <span className="flex justify-center items-center mt-5">
+                <figure className="w-8 flex justify-center items-center">
+                    <img src={logo} alt="Logo" className="w-full h-auto" />
+                </figure>
+            </span>
             <h3 className="text-3xl text-center">Welcome back</h3>
-            <p className='text-center'>Login with ZapShift</p>
+            <p className='text-center'>Login with ClubSphere</p>
             <form onSubmit={handleSubmit(handleLogin)} className="card-body">
                 <fieldset className="fieldset">
                     {/* Eamil Field */}
@@ -51,7 +63,7 @@ const Login = () => {
 
 
                     <div><Link to={'/forget-password'} className="link link-hover">Forget Password?</Link></div>
-                    <button className="btn bg-primary text-black mt-4">Login</button>
+                    <button className="btn bg-primary hover:bg-secondary text-white mt-4">Login</button>
                 </fieldset>
                 <p>Don’t have any account? <Link to={'/register'} state={location?.state} className='text-primary link-hover'>Register</Link></p>
 
