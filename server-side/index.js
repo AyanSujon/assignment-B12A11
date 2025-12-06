@@ -32,7 +32,8 @@ async function run() {
     await client.connect();
     const db = client.db('assignment-B12A11');
     const usersCollection = db.collection('users');
-
+    const clubsCollection = db.collection('clubs');
+    const eventsCollection = db.collection('events');
 
 
     // app.post('/register', async(req, res)=>{
@@ -63,13 +64,106 @@ async function run() {
 
 
 
+// Recently Added Clubs API
+app.get('/clubs', async (req, res) => {
+    try {
+        const query = {};
+        const { category, location, managerEmail } = req.query;
+
+        // Optional filters
+        if (category) {
+            query.category = category;
+        }
+
+        if (location) {
+            query.location = location;
+        }
+
+        if (managerEmail) {
+            query.managerEmail = managerEmail;
+        }
+
+        // Sort by newest first
+        const options = { sort: { createdAt: -1 } };
+
+        const cursor = clubsCollection.find(query, options);
+        const result = await cursor.toArray();
+
+        res.status(200).send(result);
+    } catch (error) {
+        console.error("Failed to fetch clubs:", error);
+        res.status(500).send({ message: "Failed to fetch clubs" });
+    }
+});
 
 
 
 
+// // Upcoming Events API
+// app.get('/events/upcoming', async (req, res) => {
+//     try {
+//         const query = {};
+//         const { clubId, isPaid, location } = req.query;
+
+//         // Filter by clubId
+//         if (clubId) {
+//             query.clubId = clubId;
+//         }
+
+//         // Filter by paid/free events
+//         if (isPaid) {
+//             query.isPaid = isPaid === "true"; // convert string → boolean
+//         }
+
+//         // Filter by location
+//         if (location) {
+//             query.location = location;
+//         }
+
+//         // Only future events
+//         query.eventDate = { $gte: new Date() };
+
+//         // Sort by nearest upcoming
+//         const options = { sort: { eventDate: 1 } };
+
+//         const cursor = eventsCollection.find(query, options);
+//         const result = await cursor.toArray();
+
+//         res.status(200).send(result);
+//     } catch (error) {
+//         console.error("Failed to fetch upcoming events:", error);
+//         res.status(500).send({ message: "Failed to fetch upcoming events" });
+//     }
+// });
 
 
 
+
+// Upcoming Events API
+app.get('/events/upcoming', async (req, res) => {
+    try {
+        const query = {};
+        const { clubId, isPaid, location } = req.query;
+
+        if (clubId) query.clubId = clubId;
+        if (isPaid) query.isPaid = isPaid === "true";
+        if (location) query.location = location;
+
+        // Handle both string and Date types
+        const nowISO = new Date().toISOString();
+
+        query.eventDate = { $gte: nowISO };
+
+        const options = { sort: { eventDate: 1 } };
+
+        const events = await eventsCollection.find(query, options).toArray();
+        res.send(events);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: "Failed to fetch upcoming events" });
+    }
+});
 
 
 
