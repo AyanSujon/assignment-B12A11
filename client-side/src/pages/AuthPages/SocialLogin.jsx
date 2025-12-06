@@ -48,17 +48,36 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import useAuth from '../../hooks/useAuth';
-import toast from 'react-hot-toast'; // <-- import toast
+import toast from 'react-hot-toast';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const SocialLogin = () => {
     const { signInWithPopupGoogle } = useAuth();
+    const axiosSecure = useAxiosSecure();
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleGoogleSignin = () => {
         signInWithPopupGoogle()
             .then((result) => {
-                toast.success('Login with Google successful! 🎉'); // <-- success toast
+
+
+
+                // create user in the database
+                const userInfo = {
+                    name: result.user.displayName,
+                    email: result.user.email,
+                    photoURL: result.user.photoURL
+                }
+
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log('user data has been stored', res.data)
+                        navigate(location.state || '/');
+                    })
+
+
+                toast.success('Login with Google successful!'); // <-- success toast
                 console.log(result.user);
                 navigate(location?.state || '/');
             })

@@ -34,13 +34,30 @@ async function run() {
     const usersCollection = db.collection('users');
 
 
-    app.post('/register', async(req, res)=>{
-      console.log(req.dody , "request");
+
+    // app.post('/register', async(req, res)=>{
+    //   console.log(req.dody , "request");
+    // })
+
+
+
+    app.post('/users', async (req, res) => {
+      const user = req.body;
+      // user.role = 'user';
+      // user.createdAt = new Date();
+      user.role = 'member',
+      user.createdAt = new Date().toISOString() // <-- dynamic timestamp
+      const email = user.email;
+      const userExists = await usersCollection.findOne({ email })
+      console.log("user data: ", user)
+      console.log("existing user", userExists)
+      if (userExists) {
+        return res.send({ message: 'user exists' })
+      }
+
+      const result = await usersCollection.insertOne(user);
+      res.send(result);
     })
-
-
-
-
 
 
 
