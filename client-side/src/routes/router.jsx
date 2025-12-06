@@ -6,6 +6,9 @@ import Login from "../pages/AuthPages/Login";
 import Register from "../pages/AuthPages/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
+import Clubs from "../pages/Clubs/Clubs";
+import Events from "../pages/Events/Events";
+import Pricing from "../pages/Pricing/Pricing";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +19,19 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home/>
-      }
+      },
+      {
+        path:'/clubs',
+        element: <Clubs/>,
+      },
+      {
+        path:'/events',
+        element: <Events/>,
+      },
+      {
+        path:'/pricing',
+        element: <Pricing/>,
+      },
     ]
   },
   {
