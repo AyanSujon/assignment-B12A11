@@ -61,8 +61,6 @@ const SocialLogin = () => {
         signInWithPopupGoogle()
             .then((result) => {
 
-
-
                 // create user in the database
                 const userInfo = {
                     name: result.user.displayName,
