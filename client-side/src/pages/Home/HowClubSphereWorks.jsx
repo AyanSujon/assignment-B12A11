@@ -1,5 +1,6 @@
 import React from "react";
 import { UserPlus, Users, CalendarDays, ShieldCheck } from "lucide-react";
+import Container from "../../components/shared/Container";
 
 const steps = [
   {
@@ -31,7 +32,7 @@ const steps = [
 const HowClubSphereWorks = () => {
   return (
     <section className="py-16 bg-base-100">
-      <div className="max-w-6xl mx-auto px-4">
+      <Container>
 
         {/* Heading */}
         <div className="text-center mb-14">
@@ -64,7 +65,7 @@ const HowClubSphereWorks = () => {
           ))}
         </div>
 
-      </div>
+      </Container>
     </section>
   );
 };
