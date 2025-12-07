@@ -131,6 +131,7 @@
 import React from "react";
 import Container from "../../components/shared/Container";
 import useClubs from "../../hooks/useClubs";
+import { Link, useParams } from "react-router";
 
 const FeaturedClubs = () => {
     // Fetch only the 4 most recent clubs
@@ -173,9 +174,9 @@ const FeaturedClubs = () => {
                                     </span>
                                 </div>
                                 <div className="card-actions mt-4">
-                                    <button className="btn btn-primary w-full hover:bg-secondary">
+                                    <Link to={`/clubs/${club._id}`} className="btn btn-primary w-full hover:bg-secondary">
                                         View Club
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

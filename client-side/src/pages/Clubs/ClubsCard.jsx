@@ -1,5 +1,6 @@
 import React from "react";
 import { MapPin, Users, Tag } from "lucide-react";
+import { Link } from "react-router";
 
 const ClubsCard = ({ club }) => {
   const {
@@ -12,6 +13,7 @@ const ClubsCard = ({ club }) => {
     membershipFee,
     status,
     createdAt,
+    _id
   } = club;
 
   const statusColor =
@@ -84,9 +86,9 @@ const ClubsCard = ({ club }) => {
 
         {/* Button */}
         <div className="mt-3">
-          <button className="btn w-full bg-[#0b99ce] text-white hover:bg-[#fe3885] border-none">
+          <Link to={`/clubs/${_id}`} className="btn w-full bg-[#0b99ce] text-white hover:bg-[#fe3885] border-none">
             View Club
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,6 +10,7 @@ import Clubs from "../pages/Clubs/Clubs";
 import Events from "../pages/Events/Events";
 import Pricing from "../pages/Pricing/Pricing";
 import Profile from "../pages/Profile/Profile";
+import ClubsDetails from "../pages/ClubsDetails/ClubsDetails";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: '/clubs',
         element: <Clubs />,
+      },
+      {
+        path: '/clubs/:id',
+        element: <ClubsDetails/>,
       },
       {
         path: '/events',
