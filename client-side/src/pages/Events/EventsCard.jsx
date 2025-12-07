@@ -1,6 +1,7 @@
 
 import React from "react";
 import { MapPin, Users, Tag } from "lucide-react";
+import { Link } from "react-router";
 
 const EventsCard = ({ event }) => {
   const {
@@ -12,6 +13,7 @@ const EventsCard = ({ event }) => {
     eventFee,
     maxAttendees,
     createdAt,
+    _id
   } = event;
 
   // Truncate description to 70 characters
@@ -75,9 +77,9 @@ const EventsCard = ({ event }) => {
 
         {/* Button */}
         <div className="mt-3">
-          <button className="btn w-full bg-[#0b99ce] text-white hover:bg-[#fe3885] border-none">
+          <Link to={`/events/${_id}`} className="btn w-full bg-[#0b99ce] text-white hover:bg-[#fe3885] border-none">
             View Event
-          </button>
+          </Link>
         </div>
       </div>
     </div>

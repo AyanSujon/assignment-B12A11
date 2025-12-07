@@ -93,6 +93,7 @@ import React from "react";
 
 import { format } from "date-fns";
 import useEvents from "../../hooks/useEvents";
+import { Link } from "react-router";
 
 const UpcomingEvents = () => {
   const { events, isLoading, isError } = useEvents(); // get real data
@@ -160,9 +161,9 @@ const UpcomingEvents = () => {
                   <p className="text-gray-700">{event.description}</p>
                 </div>
 
-                <button className="mt-4 w-full bg-[#0b99ce] hover:bg-[#fe3885] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
+                <Link to={`/events/${event._id}`} className="mt-4 btn  bg-[#0b99ce] hover:bg-[#fe3885] text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300">
                   View Details
-                </button>
+                </Link>
               </div>
             );
           })}
