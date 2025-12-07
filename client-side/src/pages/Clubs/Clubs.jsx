@@ -192,8 +192,9 @@
 import React, { useState, useMemo } from "react";
 import useClubs from "../../hooks/useClubs";
 import ClubsCard from "./ClubsCard";
+import Container from "../../components/shared/Container";
 
-export default function Clubs() {
+const Clubs= () =>{
   const { clubs = [], isLoading, isError } = useClubs();
 
   // ------------------------
@@ -210,7 +211,7 @@ export default function Clubs() {
   // Pagination States
   // ------------------------
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 2; // <-- show 2 cards per page
+  const cardsPerPage = 6; // <-- show 6 cards per page
 
   // Clear Filters Function
   const clearFilters = () => {
@@ -222,7 +223,7 @@ export default function Clubs() {
     setUpdatedAt("");
     setCurrentPage(1);
   };
-  
+
 
   // ------------------------
   // Filters Apply Logic
@@ -283,11 +284,12 @@ export default function Clubs() {
   };
 
   return (
-    <div className="drawer lg:drawer-open">
+    <Container>
+          <div className="drawer lg:drawer-open">
       <input id="clubs-filter-drawer" type="checkbox" className="drawer-toggle" />
 
       {/* PAGE CONTENT */}
-      <div className="drawer-content px-4 md:px-10 lg:px-20 py-14">
+      <div className="drawer-content px-2 md:px-3 lg:px-4  py-14">
 
         {/* Mobile Button */}
         <div className="lg:hidden mb-4">
@@ -440,5 +442,7 @@ export default function Clubs() {
         </ul>
       </div>
     </div>
+    </Container>
   );
 }
+export default Clubs;
